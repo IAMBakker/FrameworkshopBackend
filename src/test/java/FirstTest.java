@@ -1,4 +1,5 @@
 import helpers.CountriesHelper;
+import helpers.ProductsHelper;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -10,8 +11,6 @@ import java.util.Random;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class FirstTest {
-
-    private String uri = "webshop.mobiletestautomation.nl/api/";
 
     @Test
     void should_always_succeed(){
@@ -31,6 +30,30 @@ public class FirstTest {
     void should_return_country_list(){
         Response response = new CountriesHelper().getCountries();
         Assertions.assertEquals(200, response.statusCode(), "Expected valid response.");
-        System.out.println(response.getBody().asString());
+    }
+
+    @Test
+    void should_return_country(){
+        Response response = new CountriesHelper().getCountry(1);
+        Assertions.assertEquals(200, response.statusCode(), "Expected valid response.");
+    }
+
+    @Test
+    void should_return_product_list(){
+        Response response = new ProductsHelper().getProducts();
+        Assertions.assertEquals(200, response.statusCode());
+    }
+
+    @Test
+    void should_return_product(){
+        Response response = new ProductsHelper().getProduct(2);
+        Assertions.assertEquals(200, response.statusCode());
+    }
+
+    ///added failing test to check reports in pipeline.
+    @Test
+    void should_not_return_product(){
+        Response response = new ProductsHelper().getProduct(4);
+        Assertions.assertEquals(404, response.statusCode());
     }
 }

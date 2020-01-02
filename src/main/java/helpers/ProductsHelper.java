@@ -1,37 +1,34 @@
 package helpers;
 
-import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 
 import static io.restassured.RestAssured.given;
 import static utility.Configuration.getProperty;
 
-public class CountriesHelper extends HelperBase {
-    private static String baseUri = "webshop.mobiletestautomation.nl/api/";
-
-    public CountriesHelper() {
-        super(getProperty("config.properties", "baseURI"), getProperty("keys.properties", "etymology"));
+public class ProductsHelper extends HelperBase {
+    public ProductsHelper() {
+        super(getProperty("config.properties", "baseURI"), getProperty("keys.properties", "products"));
     }
 
-    public Response getCountries(){
+    public Response getProducts(){
         response = given()
                 .headers(standardXmlHeaders)
                 .relaxedHTTPSValidation()
                 .when()
                 .log().all()
-                .get("/countries");
+                .get("/products");
 
         response.prettyPrint();
         return response;
     }
 
-    public Response getCountry(int countryId){
+    public Response getProduct(int productId) {
         response = given()
                 .headers(standardXmlHeaders)
                 .relaxedHTTPSValidation()
                 .when()
                 .log().all()
-                .get("/countries/" + countryId);
+                .get("/products/" + productId);
 
         response.prettyPrint();
         return response;
