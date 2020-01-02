@@ -53,7 +53,7 @@ public class FirstTest {
     ///added failing test to check reports in pipeline.
     @Test
     void should_not_return_product(){
-        Response response = new ProductsHelper().getProduct(99);
+        Response response = new ProductsHelper().getProduct(4);
         Assertions.assertEquals(404, response.statusCode());
     }
 }
